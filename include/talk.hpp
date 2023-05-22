@@ -41,11 +41,13 @@ public:
       rmw_qos_profile_services_default, group_);
     speech_play_extend_ = this->create_publisher<protocol::msg::AudioPlayExtend>(
       "speech_play_extend", 2);
+    // 使用timer触发
     timer_ = this->create_wall_timer(
       std::chrono::milliseconds(1000), std::bind(&AudioTalkDemo::timer_callback, this));
   }
 
 private:
+  // 使用topic触发语音播报
   void RosTopicTalk(bool online)
   {
     protocol::msg::AudioPlayExtend::UniquePtr speech_play_extend_voice(new protocol::msg::
@@ -59,6 +61,7 @@ private:
     std::this_thread::sleep_for(std::chrono::seconds(5));
     RCLCPP_INFO(this->get_logger(), "[%s] done!", __func__);
   }
+  // 使用servuce触发语音播报
   void RosServiceTalk(bool online)
   {
     if (!audio_text_speech_client_->wait_for_service(std::chrono::seconds(2))) {

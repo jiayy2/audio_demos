@@ -34,6 +34,7 @@ public:
       this->create_client<protocol::srv::AudioExecute>(
       "set_audio_state",
       rmw_qos_profile_services_default, group_);
+    // 使用timer触发
     timer_ = this->create_wall_timer(
       std::chrono::milliseconds(1000), std::bind(&AudioSetMic::timer_callback, this));
   }
@@ -50,6 +51,7 @@ private:
         std::chrono::seconds timeout(3);
         auto req = std::make_shared<protocol::srv::AudioExecute::Request>();
         req->client = name_;
+        // 打开、关闭mic
         req->status.state = protocol::msg::AudioStatus::AUDIO_STATUS_NORMAL;
         //  protocol::msg::AudioStatus::AUDIO_STATUS_OFFMIC;
         auto res = audio_client_->async_send_request(req);

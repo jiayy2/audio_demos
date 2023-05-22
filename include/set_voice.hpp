@@ -38,13 +38,16 @@ public:
       "volume_get", 2);
     set_voice_ = this->create_publisher<std_msgs::msg::UInt8>(
       "volume_set", 2);
+    // 使用timer触发
     timer_ = this->create_wall_timer(
       std::chrono::milliseconds(1000), std::bind(&AudioSetVoiceDemo::timer_callback, this));
   }
 
 private:
+  // 设置音量
   void SetVolume()
   {
+    //音量设置为50
     uint8_t val = 50;
     std_msgs::msg::UInt8::UniquePtr volume(new std_msgs::msg::UInt8());
     volume->data = val;
@@ -53,6 +56,7 @@ private:
     RCLCPP_INFO(this->get_logger(), "set volume [%d]!", static_cast<int>(val));
     RCLCPP_INFO(this->get_logger(), "[%s] done!", __func__);
   }
+  // 获取当前音量
   void GetVolume()
   {
     std_msgs::msg::UInt8::UniquePtr volume(new std_msgs::msg::UInt8());

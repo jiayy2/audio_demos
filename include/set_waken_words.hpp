@@ -28,6 +28,7 @@ public:
     name_ = "AudioSetWakeUpWordsDemo";
     set_wakeup_words = this->create_publisher<std_msgs::msg::String>(
       "wake_word", 2);
+    // 使用timer触发
     timer_ = this->create_wall_timer(
       std::chrono::milliseconds(1000), std::bind(&AudioSetWakeUpWordsDemo::timer_callback, this));
   }
@@ -36,6 +37,7 @@ private:
   void timer_callback()
   {
     std_msgs::msg::String::UniquePtr wake_words(new std_msgs::msg::String());
+    // 唤醒词
     //  wake_words->data = "铁蛋铁蛋";
     wake_words->data = "旺财旺财";
     set_wakeup_words->publish(std::move(wake_words));
