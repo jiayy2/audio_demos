@@ -79,11 +79,6 @@ scp -r install/share/audio_demos mi@192.168.55.1:/home/mi
 cp -rf audio_demos /opt/ros2/cyberdog/share
 sudo rm -rf audio_demos
 
-#本地终端cyberdog_ws目录
-scp -r install/include/audio_demos mi@192.168.55.1:/home/mi
-#狗上终端/home/mi目录
-cp -rf audio_demos /opt/ros2/cyberdog/include
-sudo rm -rf audio_demos
 ```
 
 #### 2、在终端启动功能包
