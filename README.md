@@ -55,11 +55,11 @@ source /opt/ros2/galactic/setup.bash
 
 #第一次编译某个功能包需要使用--packages-up-to,编译该功能包及其依赖包
 
-colcon build --merge-install --packages-up-to audio_demos
+colcon build --merge-install --install-base /opt/ros2/cyberdog/ --packages-up-to audio_demos
 
 #后续升级单个功能包使用--packages-select，只编译该功能包
 
-colcon build --merge-install --packages-select audio_demos
+colcon build --merge-install --install-base /opt/ros2/cyberdog/ --packages-select audio_demos
 ```
 
 ### 运行
@@ -67,17 +67,17 @@ colcon build --merge-install --packages-select audio_demos
 #### 1、拷贝到机器狗上
 
 ```
+#docker终端cyberdog_ws目录
+mkdir -p audio_install/lib
+mkdir -p audio_install/share
+cp /opt/ros2/cyberdog/lib/audio_demos audio_install/lib
+cp /opt/ros2/cyberdog/share/audio_demos audio_install/share
 #本地终端cyberdog_ws目录
-scp -r install/lib/audio_demos mi@192.168.55.1:/home/mi
+scp -r audio_install mi@192.168.55.1:/home/mi
 #狗上终端/home/mi目录
-cp -rf audio_demos /opt/ros2/cyberdog/lib
-sudo rm -rf audio_demos
-
-#本地终端cyberdog_ws目录
-scp -r install/share/audio_demos mi@192.168.55.1:/home/mi
-#狗上终端/home/mi目录
-cp -rf audio_demos /opt/ros2/cyberdog/share
-sudo rm -rf audio_demos
+cp -rf audio_install/lib /opt/ros2/cyberdog/lib
+cp -rf audio_install/share /opt/ros2/cyberdog/share
+sudo rm -rf audio_install
 
 ```
 
