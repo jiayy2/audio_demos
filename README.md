@@ -86,8 +86,8 @@ sudo rm -rf audio_install
 ``` 
 source /opt/ros2/cyberdog/setup.bash
 
-#运行talk,运行后将听到狗发出一段语音（此demo需要联外网，外网不可用情况请情况请切换到离线语音）
-ros2 run audio_demos talk --ros-args -r __ns:=/`ros2 node list | grep "mi_" | head -n 1 | cut -f 2 -d "/"
+#运行talker,运行后将听到狗发出一段语音（此demo需要联外网，外网不可用情况请情况请切换到离线语音）
+ros2 run audio_demos talker --ros-args -r __ns:=/`ros2 node list | grep "mi_" | head -n 1 | cut -f 2 -d "/"
 
 #运行set_mic，运行后audio进入normal模式，可在代码中修改进入offmic模式
 ros2 run audio_demos set_mic --ros-args -r __ns:=/`ros2 node list | grep "mi_" | head -n 1 | cut -f 2 -d "/"
